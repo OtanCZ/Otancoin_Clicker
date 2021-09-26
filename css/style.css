@@ -1,0 +1,24 @@
+*{color: white; box-sizing: border-box; text-align: center; margin: 0; padding: 0; display: absolute; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -ms-user-select: none; user-select: none;}
+html, body{height:100%;}
+body{scroll-behavior: smooth; background-image: url('../images/baseplate1080.png'); font-family: 'roboto', sans-serif; background-position: center; background-repeat: no-repeat; background-size: cover; background-attachment: fixed;}
+
+#counter{width: 100%; padding-top: 3vh; color: white;}
+.stat{width: 33%; float: left; background-color: rgba(20, 20, 20, 0.5); border: white solid 3px; padding: 1vh;}
+
+#goleft, #goright{color: black; height:50%; padding: 0.5vh; background-color: white; transform: translateY(25%); display: flex; justify-content: center; align-items: center;}
+#goleft{float: left;}
+#goright{float: right;}
+
+#promptSave, #promptLoad{position: absolute; padding: 2vw; bottom: 0; background-color: rgba(20, 20, 20, 0.5); visibility: hidden;}
+
+#hatclicker{height:40vh; margin-top: 20vh}
+#hatclicker.click{animation: clicked 100ms linear}
+@keyframes clicked{0% {transform: scale(1)} 100%{transform: scale(0.95)}}
+
+#title{width: 50%; max-height: 10vh; animation: hahaitgo 5s ease-in-out infinite;}
+@keyframes hahaitgo{0%, 100%{transform: translateY(4vh)} 50% {transform: translateY(1vh)}}
+
+#shop, #market{display: none; width:80%; height: 80%; background-color: rgba(20, 20, 20, 0.8); z-index: 10; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: white solid 3px;}
+
+@keyframes animateleft {from {left: -300px; opacity: 0}to {left: 0; opacity: 1}}
+@keyframes animateright {from {right: -300px; opacity: 0}to {right: 0; opacity: 1}}
