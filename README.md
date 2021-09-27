@@ -1,4 +1,5 @@
-# Oťancoin Clicker
+# <img src="/images/title lmao.png" alt="Title">
+###### ^ jeez this title is bad
 
 ### <img src="/images/hat.png" alt="Oťancoin" width="25" height="25"/>**Cryptocurrency crashed as a whole.** You now dedicate your life to mining *"Oťancoins"*.<img src="/images/hat.png" alt="Oťancoin" width="25" height="25"/>  
 
@@ -10,12 +11,13 @@ This was made for a school project: Making your own Clicker-type game.
 
 TODO list:
 - [x] Make the layout.
-- [x] Make the EPIC COMIC SANS logo + the coin.
+- [x] Make the EPIC COMIC SANS title + the coin.
 - [x] Make it well, click.
 - [x] Saving progress using cookies.
 - [x] Making the shop and a way to buy stuff from it.
 - [x] Getting brain damage.
 - [ ] Make the game more pretty.
+- [ ] Better mobile support.
 - [ ] Balancing out the shop.
 - [ ] Providing pictures for the shop.
 - [ ] Maybe some clicking upgrades, since it becomes redundant after a few minutes.
