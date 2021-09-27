@@ -18,7 +18,10 @@ body{scroll-behavior: smooth; background-image: url('../images/baseplate1080.png
 #title{width: 50%; max-height: 10vh; animation: hahaitgo 5s ease-in-out infinite;}
 @keyframes hahaitgo{0%, 100%{transform: translateY(4vh)} 50% {transform: translateY(1vh)}}
 
-#shop, #market{display: none; width:80%; height: 80%; background-color: rgba(20, 20, 20, 0.8); z-index: 10; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: white solid 3px;}
-
-@keyframes animateleft {from {left: -300px; opacity: 0}to {left: 0; opacity: 1}}
-@keyframes animateright {from {right: -300px; opacity: 0}to {right: 0; opacity: 1}}
+#shop, #market{display: none; width:80%; height: 80%; background-color: #222; z-index: 10; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: white solid 3px;}
+#shop #storeThings div{border-bottom: 2px solid white; padding: 5vh}
+#shop #storeThings div img{width: 10vh; height: 5vh; float:left; transform: translate(0%, -40%)}
+#shop #storeThings div dl{float: right; list-style-type: none;}
+#market div{margin-top: 15vh}
+@keyframes animateleft {from {left: -300px; opacity: 0} to {left: 0; opacity: 1}}
+@keyframes animateright {from {right: -300px; opacity: 0} to {right: 0; opacity: 1}}

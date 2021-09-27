@@ -6,25 +6,30 @@
     </head>
     <body id="body">
         <div id="market">
-            <div style="bottom:0; position:absolute">You can close this menu by clicking on the button again.</div>
-            <div style="border-bottom: white solid 3px; font-size: xx-large;">Welcome to the Black Market, or something..</div>
-            <div id="coinPrice" style="margin-top: 5%">Oťancoin is currently valued at: [number] $.</div>
+            <p style="bottom:0; position:absolute">You can close this menu by clicking on the button again.</p>
+            <p style="border-bottom: white solid 3px; font-size: xx-large;">Welcome to the Black Market, or something..</p>
+            <div id="coinPrice">Oťancoin is currently valued at: <span class="dollarValueThing">[number]</span> $.</div>
 
-            <div style="margin-top: 20%;">
-                <div id="myCoinPrice">You have [number] Oťancoins, you can sell them all for [number]$.</div>
-                <input style="color: black" type="button" value="Sell All"> for [number]$
+            <div>
+                <div id="myCoinPrice">You have <span class="coinCounter">[number]</span>, you can sell them all for <span id="dollarValueForAll">[number]</span> $.</div>
+                <input style="color: black" type="button" value="Sell All" id="sellAllButton">
             </div>
 
-            <div style="margin-top: 10%;">
-                <div id="customCoinPrice">Or you can sell [number] coins for [number]$</div>
-                <input type="number" style="color: black"> <input type="button" style="color: black" value="Sell [number]">
+            <div>
+                <div id="customCoinPrice">Or you can sell <span id="coinInput">0</span> coins for <span id="dollarInput">0</span> $</div>
+                <input type="number" style="color: black" id="sellInput"> <input type="button" style="color: black" value="Sell" id="sellInputButton">
             </div>
             
         </div>
 
-        <div id="shop">
-            <div style="bottom:0; position:absolute">You can close this menu by clicking on the button again.</div>
+        <div id="shop" style="overflow: auto;">
             <div style="border-bottom: white solid 3px; font-size: xx-large;">Welcome to Le Grafiko Storo.</div>
+
+            <div id="storeThings">
+
+            </div>
+
+            <div style="position:absolute">You can close this menu by clicking on the button again.</div>
         </div>
 
         <img id="title" src="images/title lmao.png">
@@ -34,7 +39,7 @@
                 0 $
             </div>
 
-            <div class="stat" id="coinCounter">
+            <div class="stat coinCounter">
                 0 coins
             </div>
 

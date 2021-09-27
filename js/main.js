@@ -1,17 +1,23 @@
 import Cookies from './js.cookie.mjs'
 
-fetch('../things.json')
-  .then(response => response.json())
-  .then(thingsInShop => console.log(thingsInShop))
-  .catch(error => console.log(error));
-
-let body = document.getElementById("body")
 let dollarCounter = document.getElementById("dollarCounter")
-let coinCounter = document.getElementById("coinCounter")
+let coinCounter = document.getElementsByClassName("coinCounter")
 let CPScounter = document.getElementById("CPScounter")
+let dollarValueThing = document.getElementsByClassName("dollarValueThing")
+let dollarValueForAll = document.getElementById("dollarValueForAll")
+
+let sellAllButton = document.getElementById("sellAllButton")
+
+let sellInput = document.getElementById("sellInput")
+let sellInputButton = document.getElementById("sellInputButton")
+let coinInput = document.getElementById("coinInput")
+let dollarInput = document.getElementById("dollarInput")
 
 let goleft = document.getElementById("goleft")
 let goright = document.getElementById("goright")
+let storeThings = document.getElementById("storeThings")
+let thingCountInShop = document.getElementsByClassName("thingCountInShop")
+let thingCostInShop = document.getElementsByClassName("thingCostInShop")
 
 let promptSave = document.getElementById("promptSave")
 let promptLoad = document.getElementById("promptLoad")
@@ -29,67 +35,192 @@ let coinCount = 0;
 let coinsPerSecond = 0;
 let coinPerClick = 1;
 let dollars = 0;
-let things = [0, 0, 0, 0]
+let things = [0, 0, 0, 0, 0, 0, 0, 0]
+let coinValue = 0.5;
+
+fetch('../things.json')
+  .then(response => response.json())
+  .then(thingsInShop => thingsInShop.buildings.forEach(thing => {
+    let thingDiv = document.createElement("div");
+
+    let thingImg = document.createElement("img");
+    let thingTitle = document.createElement("abbr");
+
+    let thingInfo = document.createElement("dl");
+    let thingCost = document.createElement("li");
+    let thingCPS = document.createElement("li");
+    let thingCount = document.createElement("li");
+    
+    thingImg.src = thing.image;
+    thingTitle.innerText = thing.name;
+    thingTitle.title = thing.description;
+
+    thingCPS.innerText = thing.addCPS + " CPS";
+    thingCost.innerText = Math.round(thing.price*Math.pow(1.15, things[thing.id])) + " $";
+    thingCount.innerText = things[thing.id] + " owned";
+
+    thingCount.className = "thingCountInShop";
+    thingCost.className = "thingCostInShop";
+
+    thingDiv.appendChild(thingImg);
+    thingDiv.appendChild(thingTitle);
+    thingDiv.appendChild(thingInfo);
+
+    thingInfo.appendChild(thingCost);
+    thingInfo.appendChild(thingCPS);
+    thingInfo.appendChild(thingCount);
+
+    storeThings.appendChild(thingDiv);
+    
+    thingDiv.onclick = () => {
+        if(dollars >= Math.round(thing.price*Math.pow(1.15, things[thing.id]))){
+            dollars -= Math.round(thing.price*Math.pow(1.15, things[thing.id]));
+            dollarCounter.innerHTML = dollars + " $";
+
+            coinsPerSecond += thing.addCPS;
+            CPScounter.innerHTML = coinsPerSecond + " CPS";
+
+            eval(things[thing.id]++);
+            thingCount.innerHTML = things[thing.id] + " owned"
+
+            thingCost.innerHTML = Math.round(thing.price*Math.pow(1.15, things[thing.id])) + " $"
+        }
+
+        else{
+            thingCost.style.color = "red";
+            setTimeout(() => {thingCost.style.color = "white"}, 800);
+        }
+    }}
+  ))
+  .catch(error => console.log(error));
 
 function hatClick(){
     coinCount += coinPerClick
 
     hatclicker.classList.add('click');
     setTimeout(() => {hatclicker.classList.remove('click')}, 150);
-    coinCounter.innerHTML = coinCount + " coins";
+    for (let i = 0; i < coinCounter.length; i++) {
+        coinCounter[i].innerHTML = coinCount + " coins";
+    }
 }
 
 setInterval(function(){
     coinCount += coinsPerSecond;
-    coinCounter.innerHTML = coinCount + " coins";
+    for (let i = 0; i < coinCounter.length; i++) {
+        coinCounter[i].innerHTML = coinCount + " coins";
+    }
+    dollarValueForAll.innerHTML = Math.round(coinCount*coinValue)
 }, 1000);
 
-function loadSave() {
+window.addEventListener("DOMContentLoaded", () => {
     if(eval(Cookies.get('coins')) != undefined){coinCount = eval(Cookies.get('coins'))}
+    if(eval(Cookies.get('coinValue')) != undefined){coinValue = eval(Cookies.get('coinValue'))}
     if(eval(Cookies.get('CPS')) != undefined){coinsPerSecond = eval(Cookies.get('CPS'))}
     if(eval(Cookies.get('CPC')) != undefined){coinPerClick = eval(Cookies.get('CPC'))}
-    if(eval(Cookies.get('things')) != undefined){things = eval(Cookies.get('things'))}
+    if(eval(Cookies.get('dollars')) != undefined){dollars = eval(Cookies.get('dollars'))}
+    if(eval(Cookies.get('things')) != undefined){things = eval(Cookies.get('things').split("|"))}
 
-    coinCounter.innerHTML = coinCount + " coins";
-    CPScounter.innerHTML = coinsPerSecond + " coins per second";
+    for (let i = 0; i < coinCounter.length; i++) {
+        coinCounter[i].innerHTML = coinCount + " coins";
+    }
+
+    CPScounter.innerHTML = coinsPerSecond + " CPS";
     dollarCounter.innerHTML = dollars + " $";
 
+    for (let i = 0; i < dollarValueThing.length; i++) {
+        dollarValueThing[i].innerHTML = coinValue;
+    }
+
+    dollarValueForAll.innerHTML = Math.round(coinCount*coinValue)
+    
     promptLoad.style.visibility = "visible";
     setTimeout(() => {promptLoad.style.visibility = "hidden"}, 2000);
-}
+});
 
 setInterval(function(){
+    things = things.join("|");
     Cookies.set('coins', coinCount, {expires: 235, path: '' });
+    Cookies.set('coinValue', coinValue, {expires: 235, path: '' });
     Cookies.set('CPS', coinsPerSecond, {expires: 235, path: '' });
     Cookies.set('CPC', coinPerClick, {expires: 235, path: '' });
     Cookies.set('dollars', dollars, {expires: 235, path: '' });
     Cookies.set('things', things, {expires: 235, path: '' });
-
+    things = things.split("|");
+    
     promptSave.style.visibility = "visible";
     setTimeout(() => {promptSave.style.visibility = "hidden"}, 2000);
+
+    coinValue = Math.round(Math.random() * 10)/10
+
+    for (let i = 0; i < dollarValueThing.length; i++) {
+        dollarValueThing[i].innerHTML = coinValue;
+    }   
 }, 60000);
 
-function goRight(){
-    if(shop.style.display == "block"){
-        shop.style.display = "none"
-    }
 
-    else{
-        shop.style.display = "block";
-    }
-}
+hatclicker.onclick = hatClick;
 
-function goLeft(){
+goleft.onclick = () => {
     if(market.style.display == "block"){
         market.style.display = "none"
+        goleft.style.backgroundColor = "white"
     }
 
     else{
         market.style.display = "block";
+        goleft.style.backgroundColor = "lightblue"
     }
+};
+
+goright.onclick = () => {
+    if(shop.style.display == "block"){
+        shop.style.display = "none"
+        goright.style.backgroundColor = "white"
+    }
+
+    else{
+        shop.style.display = "block";
+        goright.style.backgroundColor = "lightblue"
+    }
+};
+
+sellAllButton.onclick = () => {
+    dollars += Math.round(coinCount*coinValue)
+    coinCount = 0;
+
+    for (let i = 0; i < coinCounter.length; i++) {
+        coinCounter[i].innerHTML = coinCount + " coins";
+    }
+    dollarCounter.innerHTML = dollars + " $"
+
+    dollarValueForAll.innerHTML = Math.round(coinCount*coinValue)
+};
+
+sellInput.oninput = () => {
+    if(sellInput.value > coinCount){
+        sellInput.value = coinCount
+    }
+
+    if(sellInput.value < 0){
+        sellInput.value = 0
+    }
+
+    coinInput.innerHTML = sellInput.value
+    dollarInput.innerHTML = Math.round(sellInput.value*coinValue)
 }
 
-goleft.onclick = goLeft;
-goright.onclick = goRight;
-hatclicker.onclick = hatClick;
-window.onload = loadSave;
+sellInputButton.onclick = () => {
+    coinCount -= coinInput.innerHTML;
+    dollars += Math.round(sellInput.value*coinValue);
+
+    sellInput.value = 0;
+    coinInput.innerHTML = "0";
+    dollarInput.innerHTML = "0";
+    for (let i = 0; i < coinCounter.length; i++) {
+        coinCounter[i].innerHTML = coinCount + " coins";
+    }
+
+    dollarCounter.innerHTML = dollars + " $"
+    dollarValueForAll.innerHTML = Math.round(coinCount*coinValue)
+}
+
