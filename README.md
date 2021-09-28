@@ -16,10 +16,10 @@ TODO list:
 - [x] Saving progress using cookies.
 - [x] Making the shop and a way to buy stuff from it.
 - [x] Getting brain damage.
-- [ ] Make the game more pretty.
-- [ ] Better mobile support.
-- [ ] Balancing out the shop.
-- [ ] Providing pictures for the shop.
+- [x] Better mobile support.
+- [x] Balancing out the shop.
+- [x] Providing pictures for the shop.
+- [ ] Make the game prettier.
 - [ ] Maybe some clicking upgrades, since it becomes redundant after a few minutes.
 - [ ] Ascensions?
 
