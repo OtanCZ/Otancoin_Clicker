@@ -19,9 +19,9 @@ body{scroll-behavior: smooth; background-image: url('../images/baseplate1080.png
 @keyframes hahaitgo{0%, 100%{transform: translateY(4vh)} 50% {transform: translateY(1vh)}}
 
 #shop, #market{display: none; width:80%; height: 80%; background-color: #222; z-index: 10; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: white solid 3px;}
-#shop #storeThings div{border-bottom: 2px solid white; padding: 5vh}
-#shop #storeThings div img{width: 10vh; height: 5vh; float:left; transform: translate(0%, -40%)}
-#shop #storeThings div dl{float: right; list-style-type: none;}
+#shop #storeThings div{border-bottom: 2px solid white; padding: 5vh; display: table; width: 100%}
+#shop #storeThings div img{width: 7vh; height: 5vh; float:left;}
+#shop #storeThings div dl{float: right; list-style-type: none; }
 #market div{margin-top: 15vh}
 @keyframes animateleft {from {left: -300px; opacity: 0} to {left: 0; opacity: 1}}
 @keyframes animateright {from {right: -300px; opacity: 0} to {right: 0; opacity: 1}}

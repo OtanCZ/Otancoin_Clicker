@@ -36,7 +36,7 @@ let coinsPerSecond = 0;
 let coinPerClick = 1;
 let dollars = 0;
 let things = [0, 0, 0, 0, 0, 0, 0, 0]
-let coinValue = 0.5;
+let coinValue = 0.2;
 
 fetch('../things.json')
   .then(response => response.json())
@@ -150,7 +150,7 @@ setInterval(function(){
     promptSave.style.visibility = "visible";
     setTimeout(() => {promptSave.style.visibility = "hidden"}, 2000);
 
-    coinValue = Math.round(Math.random() * 10)/10
+    coinValue = Math.round(Math.random() * 40)/100
 
     for (let i = 0; i < dollarValueThing.length; i++) {
         dollarValueThing[i].innerHTML = coinValue;

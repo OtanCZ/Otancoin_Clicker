@@ -4,7 +4,7 @@
             "id": 0,
             "name": "Old GPU",
             "description": "Better for a museum than mining, but jokes on the GPU, you don't pay electricity, so it's basically free money! Yay!",
-            "image": "https://upload.wikimedia.org/wikipedia/commons/e/e1/VisionTek_GeForce_256.jpg",
+            "image": "./images/1.png",
             "addCPS": 1,
             "price": 25     
         },
@@ -13,53 +13,44 @@
             "id": 1,
             "name": "Low-end GPU",
             "description": "Probably leftovers from a kid's old gaming rig, with this you can at least launch Minecraft without it crashing.",
-            "image": "",
+            "image": "./images/2.png",
             "addCPS": 5,
-            "price": 200
+            "price": 350
         },
 
         {
             "id": 2,
             "name": "GPU",
             "description": "Finally some POWAH! This is considered the norm for gaming, that's plenty for mining!",
-            "image": "",
+            "image": "./images/3.jpg",
             "addCPS": 20,
-            "price": 1000
+            "price": 2000
         },
         {
             "id": 3,
             "name": "High-end GPU",
             "description": "The new-ish Džífors 2080 card, shame that they released the 3000 series which is way faster.",
-            "image": "",
+            "image": "./images/4.png",
             "addCPS": 50,
-            "price": 3000
+            "price": 8000
         },
 
         {
             "id": 4,
             "name": "Top-end GPU",
             "description": "Now we're talking! This is the highest offering from Džífors.",
-            "image": "",
+            "image": "./images/5.png",
             "addCPS": 200,
-            "price": 15000
+            "price": 50000
         },
 
         {
             "id": 5,
             "name": "NASA GPU",
             "description": "Yes. This is used to power the robots and rocketships that go on different planets. I wonder how the store got this...",
-            "image": "",
-            "addCPS": 1000,
-            "price": 50000
-        },
-
-        {
-            "id": 6,
-            "name": "NASA GPU",
-            "description": "Yes. This is used to power the robots and rocketships that go on different planets. I wonder how the store got this...",
-            "image": "",
-            "addCPS": 1000,
-            "price": 50000
+            "image": "./images/7.png",
+            "addCPS": 500,
+            "price": 150000
         }
     ]
 }
