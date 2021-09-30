@@ -13,11 +13,11 @@ let sellInputButton = document.getElementById("sellInputButton")
 let coinInput = document.getElementById("coinInput")
 let dollarInput = document.getElementById("dollarInput")
 
-let goleft = document.getElementById("goleft")
-let goright = document.getElementById("goright")
 let storeThings = document.getElementById("storeThings")
 let thingCountInShop = document.getElementsByClassName("thingCountInShop")
 let thingCostInShop = document.getElementsByClassName("thingCostInShop")
+
+let bottomMenuButton = document.getElementsByClassName("bottomMenuButton")
 
 let promptSave = document.getElementById("promptSave")
 let promptLoad = document.getElementById("promptLoad")
@@ -27,6 +27,8 @@ let title = document.getElementById("title")
 
 let market = document.getElementById("market")
 let shop = document.getElementById("shop")
+let stats = document.getElementById("stats")
+let settings = document.getElementById("settings")
 
 hatclicker.setAttribute('draggable', false);
 title.setAttribute('draggable', false);
@@ -104,6 +106,56 @@ function hatClick(){
     }
 }
 
+function openMenu(menu){
+    if(menu == 0){
+        if(market.style.display == "block"){
+            market.style.display = "none"
+            marketButton.style.backgroundColor = "transparent"
+        }
+
+        else{
+            market.style.display = "block";
+            marketButton.style.backgroundColor = "lightblue"
+        }
+    }
+
+    if(menu == 1){
+        if(shop.style.display == "block"){
+            shop.style.display = "none"
+            shopButton.style.backgroundColor = "transparent"
+        }
+
+        else{
+            shop.style.display = "block";
+            shopButton.style.backgroundColor = "lightblue"
+        }
+    }
+
+    if(menu == 2){
+        if(stats.style.display == "block"){
+            stats.style.display = "none"
+            statsButton.style.backgroundColor = "transparent"
+        }
+
+        else{
+            stats.style.display = "block";
+            statsButton.style.backgroundColor = "lightblue"
+        }
+    }
+
+    if(menu == 3){
+        if(settings.style.display == "block"){
+            settings.style.display = "none"
+            settingsButton.style.backgroundColor = "transparent"
+        }
+
+        else{
+            settings.style.display = "block";
+            settingsButton.style.backgroundColor = "lightblue"
+        }
+    }
+}
+
 setInterval(function(){
     coinCount += coinsPerSecond;
     for (let i = 0; i < coinCounter.length; i++) {
@@ -160,30 +212,6 @@ setInterval(function(){
 
 hatclicker.onclick = hatClick;
 
-goleft.onclick = () => {
-    if(market.style.display == "block"){
-        market.style.display = "none"
-        goleft.style.backgroundColor = "white"
-    }
-
-    else{
-        market.style.display = "block";
-        goleft.style.backgroundColor = "lightblue"
-    }
-};
-
-goright.onclick = () => {
-    if(shop.style.display == "block"){
-        shop.style.display = "none"
-        goright.style.backgroundColor = "white"
-    }
-
-    else{
-        shop.style.display = "block";
-        goright.style.backgroundColor = "lightblue"
-    }
-};
-
 sellAllButton.onclick = () => {
     dollars += Math.round(coinCount*coinValue)
     coinCount = 0;
@@ -224,3 +252,7 @@ sellInputButton.onclick = () => {
     dollarValueForAll.innerHTML = Math.round(coinCount*coinValue)
 }
 
+bottomMenuButton[0].onclick = openMenu.bind("menu", 0);
+bottomMenuButton[1].onclick = openMenu.bind("menu", 1);
+bottomMenuButton[2].onclick = openMenu.bind("menu", 2);
+bottomMenuButton[3].onclick = openMenu.bind("menu", 3);
