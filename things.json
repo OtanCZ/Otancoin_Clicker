@@ -29,7 +29,7 @@
         {
             "id": 3,
             "name": "High-end GPU",
-            "description": "The new-ish Džífors 2080 card, shame that they released the 3000 series which is way faster.",
+            "description": "The new-ish Džífors Tajtn card, shame that they released the 3000 series which is way faster.",
             "image": "./images/4.png",
             "addCPS": 50,
             "price": 8000
@@ -47,10 +47,37 @@
         {
             "id": 5,
             "name": "NASA GPU",
-            "description": "Yes. This is used to power the robots and rocketships that go on different planets. I wonder how the store got this...",
+            "description": "This is used to power the robots and rocketships that go on different planets. I wonder how the store got this...",
             "image": "./images/7.png",
             "addCPS": 500,
             "price": 150000
+        }
+    ],
+    
+    "upgrades":[
+        {
+            "id": 0,
+            "name": "Clicker",
+            "description": "This upgrade adds +1 to your clicking power.",
+            "image": "./images/cursor.png",
+            "addCPC": 1,
+            "price": 50
+        },
+        {
+            "id": 1,
+            "name": "Clicker 2",
+            "description": "This upgrade adds +1 to your clicking power, again.",
+            "image": "./images/cursor.png",
+            "addCPC": 1,
+            "price": 500
+        },
+        {
+            "id": 3,
+            "name": "Clicker 3: The Trilogy",
+            "description": "This upgrade adds +2 to your clicking power.",
+            "image": "./images/cursor.png",
+            "addCPC": 2,
+            "price": 1500
         }
     ]
 }

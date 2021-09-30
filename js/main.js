@@ -14,8 +14,7 @@ let coinInput = document.getElementById("coinInput")
 let dollarInput = document.getElementById("dollarInput")
 
 let storeThings = document.getElementById("storeThings")
-let thingCountInShop = document.getElementsByClassName("thingCountInShop")
-let thingCostInShop = document.getElementsByClassName("thingCostInShop")
+let marketThings = document.getElementById("marketThings")
 
 let bottomMenuButton = document.getElementsByClassName("bottomMenuButton")
 
@@ -25,28 +24,27 @@ let promptLoad = document.getElementById("promptLoad")
 let hatclicker = document.getElementById("hatclicker")
 let title = document.getElementById("title")
 
-let market = document.getElementById("market")
+let stocks = document.getElementById("stocks")
 let shop = document.getElementById("shop")
-let stats = document.getElementById("stats")
+let market = document.getElementById("market")
 let settings = document.getElementById("settings")
-
-hatclicker.setAttribute('draggable', false);
-title.setAttribute('draggable', false);
 
 let coinCount = 0;
 let coinsPerSecond = 0;
 let coinPerClick = 1;
 let dollars = 0;
 let things = [0, 0, 0, 0, 0, 0, 0, 0]
+let upgrades = [0, 0, 0, 0, 0, 0, 0, 0]
 let coinValue = 0.2;
 
 fetch('../things.json')
-  .then(response => response.json())
-  .then(thingsInShop => thingsInShop.buildings.forEach(thing => {
+    .then(response => response.json())
+    .then(thingsInJson => thingsInJson.buildings.forEach(thing => {
     let thingDiv = document.createElement("div");
 
     let thingImg = document.createElement("img");
     let thingTitle = document.createElement("abbr");
+    let thingDescription = document.createElement("footer");
 
     let thingInfo = document.createElement("dl");
     let thingCost = document.createElement("li");
@@ -55,7 +53,7 @@ fetch('../things.json')
     
     thingImg.src = thing.image;
     thingTitle.innerText = thing.name;
-    thingTitle.title = thing.description;
+    thingDescription.innerText = thing.description;
 
     thingCPS.innerText = thing.addCPS + " CPS";
     thingCost.innerText = Math.round(thing.price*Math.pow(1.15, things[thing.id])) + " $";
@@ -67,6 +65,7 @@ fetch('../things.json')
     thingDiv.appendChild(thingImg);
     thingDiv.appendChild(thingTitle);
     thingDiv.appendChild(thingInfo);
+    thingDiv.appendChild(thingDescription);
 
     thingInfo.appendChild(thingCost);
     thingInfo.appendChild(thingCPS);
@@ -93,8 +92,63 @@ fetch('../things.json')
             setTimeout(() => {thingCost.style.color = "white"}, 800);
         }
     }}
-  ))
-  .catch(error => console.log(error));
+))
+
+fetch('../things.json')
+  .then(response => response.json())
+  .then(thingsInJson => thingsInJson.upgrades.forEach(upgrade => {
+    let upgradeDiv = document.createElement("div");
+
+    let upgradeImg = document.createElement("img");
+    let upgradeTitle = document.createElement("abbr");
+    let upgradeDescription = document.createElement("footer");
+
+    let upgradeInfo = document.createElement("dl");
+    let upgradeCost = document.createElement("li");
+    
+    upgradeImg.src = upgrade.image;
+    upgradeTitle.innerText = upgrade.name;
+    upgradeDescription.innerText = upgrade.description;
+
+    upgradeCost.innerText = upgrade.price + " coins"
+
+    upgradeDiv.appendChild(upgradeImg);
+    upgradeDiv.appendChild(upgradeTitle);
+    upgradeDiv.appendChild(upgradeInfo);
+    upgradeDiv.appendChild(upgradeDescription);
+
+    upgradeInfo.appendChild(upgradeCost);
+
+    if(upgrades[upgrade.id] == 1){
+        upgradeDiv.style.display = "none";
+    }
+
+    marketThings.appendChild(upgradeDiv);
+    
+    upgradeDiv.onclick = () => {
+        if(coinCount >= upgrade.price){
+            if(upgrade.addCPC){
+                coinPerClick += upgrade.addCPC;
+            }
+
+            coinCount -= upgrade.price
+
+            upgrades[upgrade.id] = 1;
+
+            upgradeDiv.style.display = "none";
+
+            for (let i = 0; i < coinCounter.length; i++) {
+                coinCounter[i].innerHTML = coinCount + " coins";
+            }
+        }
+
+        else{
+            upgradeCost.style.color = "red";
+            setTimeout(() => {upgradeCost.style.color = "white"}, 800);
+        }
+    }}
+))
+  
 
 function hatClick(){
     coinCount += coinPerClick
@@ -103,56 +157,6 @@ function hatClick(){
     setTimeout(() => {hatclicker.classList.remove('click')}, 150);
     for (let i = 0; i < coinCounter.length; i++) {
         coinCounter[i].innerHTML = coinCount + " coins";
-    }
-}
-
-function openMenu(menu){
-    if(menu == 0){
-        if(market.style.display == "block"){
-            market.style.display = "none"
-            marketButton.style.backgroundColor = "transparent"
-        }
-
-        else{
-            market.style.display = "block";
-            marketButton.style.backgroundColor = "lightblue"
-        }
-    }
-
-    if(menu == 1){
-        if(shop.style.display == "block"){
-            shop.style.display = "none"
-            shopButton.style.backgroundColor = "transparent"
-        }
-
-        else{
-            shop.style.display = "block";
-            shopButton.style.backgroundColor = "lightblue"
-        }
-    }
-
-    if(menu == 2){
-        if(stats.style.display == "block"){
-            stats.style.display = "none"
-            statsButton.style.backgroundColor = "transparent"
-        }
-
-        else{
-            stats.style.display = "block";
-            statsButton.style.backgroundColor = "lightblue"
-        }
-    }
-
-    if(menu == 3){
-        if(settings.style.display == "block"){
-            settings.style.display = "none"
-            settingsButton.style.backgroundColor = "transparent"
-        }
-
-        else{
-            settings.style.display = "block";
-            settingsButton.style.backgroundColor = "lightblue"
-        }
     }
 }
 
@@ -171,6 +175,7 @@ window.addEventListener("DOMContentLoaded", () => {
     if(eval(Cookies.get('CPC')) != undefined){coinPerClick = eval(Cookies.get('CPC'))}
     if(eval(Cookies.get('dollars')) != undefined){dollars = eval(Cookies.get('dollars'))}
     if(eval(Cookies.get('things')) != undefined){things = eval(Cookies.get('things').split("|"))}
+    if(eval(Cookies.get('upgrades')) != undefined){upgrades = eval(Cookies.get('upgrades').split("|"))}
 
     for (let i = 0; i < coinCounter.length; i++) {
         coinCounter[i].innerHTML = coinCount + " coins";
@@ -190,19 +195,22 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 setInterval(function(){
+    coinValue = Math.round(Math.random() * 40)/100
+
     things = things.join("|");
+    upgrades = upgrades.join("|");
     Cookies.set('coins', coinCount, {expires: 235, path: '' });
     Cookies.set('coinValue', coinValue, {expires: 235, path: '' });
     Cookies.set('CPS', coinsPerSecond, {expires: 235, path: '' });
     Cookies.set('CPC', coinPerClick, {expires: 235, path: '' });
     Cookies.set('dollars', dollars, {expires: 235, path: '' });
     Cookies.set('things', things, {expires: 235, path: '' });
+    Cookies.set('upgrades', upgrades, {expires: 235, path: '' });
     things = things.split("|");
+    upgrades = upgrades.split("|");
     
     promptSave.style.visibility = "visible";
     setTimeout(() => {promptSave.style.visibility = "hidden"}, 2000);
-
-    coinValue = Math.round(Math.random() * 40)/100
 
     for (let i = 0; i < dollarValueThing.length; i++) {
         dollarValueThing[i].innerHTML = coinValue;
@@ -215,6 +223,9 @@ hatclicker.onclick = hatClick;
 sellAllButton.onclick = () => {
     dollars += Math.round(coinCount*coinValue)
     coinCount = 0;
+    sellInput.value = 0
+    coinInput.innerHTML = "0";
+    dollarInput.innerHTML = "0";
 
     for (let i = 0; i < coinCounter.length; i++) {
         coinCounter[i].innerHTML = coinCount + " coins";
@@ -252,7 +263,50 @@ sellInputButton.onclick = () => {
     dollarValueForAll.innerHTML = Math.round(coinCount*coinValue)
 }
 
-bottomMenuButton[0].onclick = openMenu.bind("menu", 0);
-bottomMenuButton[1].onclick = openMenu.bind("menu", 1);
-bottomMenuButton[2].onclick = openMenu.bind("menu", 2);
-bottomMenuButton[3].onclick = openMenu.bind("menu", 3);
+bottomMenuButton[0].onclick = () => {
+    if(stocks.style.display == "block"){
+        stocks.style.display = "none"
+        stocksButton.style.backgroundColor = "#222"
+    }
+
+    else{
+        stocks.style.display = "block";
+        stocksButton.style.backgroundColor = "#00aeff"
+    }
+}
+
+bottomMenuButton[1].onclick = () => {
+    if(shop.style.display == "block"){
+        shop.style.display = "none"
+        shopButton.style.backgroundColor = "#222"
+    }
+
+    else{
+        shop.style.display = "block";
+        shopButton.style.backgroundColor = "#00aeff"
+    }
+}
+
+bottomMenuButton[2].onclick = () => {
+    if(market.style.display == "block"){
+        market.style.display = "none"
+        marketButton.style.backgroundColor = "#222"
+    }
+
+    else{
+        market.style.display = "block";
+        marketButton.style.backgroundColor = "#00aeff"
+    }
+}
+
+bottomMenuButton[3].onclick = () => {
+    if(settings.style.display == "block"){
+        settings.style.display = "none"
+        settingsButton.style.backgroundColor = "#222"
+    }
+
+    else{
+        settings.style.display = "block";
+        settingsButton.style.backgroundColor = "#00aeff"
+    }
+}

@@ -5,10 +5,8 @@ body{scroll-behavior: smooth; background-image: url('../images/baseplate1080.png
 #counter{width: 100%; padding-top: 3vh; color: white;}
 .stat{width: 33%; float: left; background-color: rgba(20, 20, 20, 0.5); border: white solid 3px; padding: 1vh;}
 
-#bottomMenu{width: 60%; height: 10vh; bottom: 0; left: 20%; background-color: #222; position: absolute; display: flex; flex-direction: row; justify-content: space-between; border-top: white solid 3px;}
-#bottomMenu img{height: 100%; width: 10vh; border-left: white solid 3px; border-right: white solid 3px;}
-@media screen and (max-width: 800px) {#bottomMenu {width: 100%; left: 0}}
-
+#bottomMenu{width: 60%; height: 10vh; bottom: 0; left: 20%; position: absolute; display: flex; flex-direction: row; justify-content: space-between; border-radius: 2rem;}
+#bottomMenu img{height: 100%; width: 10vh; border: white solid 3px; background-color: #222;}
 
 #promptSave, #promptLoad{position: absolute; padding: 2vw; bottom: 0; background-color: rgba(20, 20, 20, 0.5); visibility: hidden; z-index: 999999;}
 
@@ -19,10 +17,19 @@ body{scroll-behavior: smooth; background-image: url('../images/baseplate1080.png
 #title{width: 50%; max-height: 10vh; animation: hahaitgo 5s ease-in-out infinite;}
 @keyframes hahaitgo{0%, 100%{transform: translateY(4vh)} 50% {transform: translateY(1vh)}}
 
-#shop, #market, #stats, #settings{display: none; overflow: auto; width:80%; height: 80%; background-color: #222; z-index: 10; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: white solid 3px;}
-#shop #storeThings div{border-bottom: 2px solid white; padding: 5vh; display: table; width: 100%}
-#shop #storeThings div img{width: 7vh; height: 5vh; float:left}
-#shop #storeThings div dl{float: right; list-style-type: none}
-#market div{margin-top: 10vh; display: table; width: 100%}
+#shop, #market, #stocks, #settings{display: none; overflow: auto; width:80%; height: 80%; background-color: #222; z-index: 10; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: white solid 3px;}
+#shop #storeThings div, #market #marketThings div{border-bottom: 2px solid white; padding: 5vw; display: table; width: 100%}
+#shop #storeThings div img, #market #marketThings div img{width: 7vh; height: 5vh; float:left}
+#shop #storeThings div dl, #market #marketThings div dl{float: right; list-style-type: none}
+#shop #storeThings div footer, #market #marketThings div footer{font-size: 1.7vh; margin: 1vh}
+
+#stocks div{margin-top: 10vh; display: table; width: 100%}
 @keyframes animateleft {from {left: -300px; opacity: 0} to {left: 0; opacity: 1}}
 @keyframes animateright {from {right: -300px; opacity: 0} to {right: 0; opacity: 1}}
+
+@media screen and (max-width: 800px){
+    #bottomMenu {width: 100%; left: 0}
+    #shop #storeThings div, #market #marketThings div{padding: 5vw 2vw;}
+    #shop #storeThings div footer, #market #marketThings div footer{font-size: 1.2vh;}
+}
+
