@@ -22,7 +22,6 @@ let promptSave = document.getElementById("promptSave")
 let promptLoad = document.getElementById("promptLoad")
 
 let hatclicker = document.getElementById("hatclicker")
-let title = document.getElementById("title")
 
 let stocks = document.getElementById("stocks")
 let shop = document.getElementById("shop")
@@ -32,6 +31,7 @@ let settings = document.getElementById("settings")
 let coinCount = 0;
 let coinsPerSecond = 0;
 let coinPerClick = 1;
+let coinPerClickplusCPS = 0;
 let dollars = 0;
 let things = [0, 0, 0, 0, 0, 0, 0, 0]
 let upgrades = [0, 0, 0, 0, 0, 0, 0, 0]
@@ -131,6 +131,10 @@ fetch('../things.json')
                 coinPerClick += upgrade.addCPC;
             }
 
+            if(upgrade.addCPCplusCPS){
+                coinPerClickplusCPS += upgrade.addCPCplusCPS;
+            }
+
             coinCount -= upgrade.price
 
             upgrades[upgrade.id] = 1;
@@ -151,7 +155,7 @@ fetch('../things.json')
   
 
 function hatClick(){
-    coinCount += coinPerClick
+    coinCount += Math.round(coinPerClick + coinsPerSecond*coinPerClickplusCPS)
 
     hatclicker.classList.add('click');
     setTimeout(() => {hatclicker.classList.remove('click')}, 150);
@@ -173,6 +177,7 @@ window.addEventListener("DOMContentLoaded", () => {
     if(eval(Cookies.get('coinValue')) != undefined){coinValue = eval(Cookies.get('coinValue'))}
     if(eval(Cookies.get('CPS')) != undefined){coinsPerSecond = eval(Cookies.get('CPS'))}
     if(eval(Cookies.get('CPC')) != undefined){coinPerClick = eval(Cookies.get('CPC'))}
+    if(eval(Cookies.get('CPCp')) != undefined){coinPerClickplusCPS = eval(Cookies.get('CPCp'))}
     if(eval(Cookies.get('dollars')) != undefined){dollars = eval(Cookies.get('dollars'))}
     if(eval(Cookies.get('things')) != undefined){things = eval(Cookies.get('things').split("|"))}
     if(eval(Cookies.get('upgrades')) != undefined){upgrades = eval(Cookies.get('upgrades').split("|"))}
@@ -203,6 +208,7 @@ setInterval(function(){
     Cookies.set('coinValue', coinValue, {expires: 235, path: '' });
     Cookies.set('CPS', coinsPerSecond, {expires: 235, path: '' });
     Cookies.set('CPC', coinPerClick, {expires: 235, path: '' });
+    Cookies.set('CPCp', coinPerClickplusCPS, {expires: 235, path: '' });
     Cookies.set('dollars', dollars, {expires: 235, path: '' });
     Cookies.set('things', things, {expires: 235, path: '' });
     Cookies.set('upgrades', upgrades, {expires: 235, path: '' });

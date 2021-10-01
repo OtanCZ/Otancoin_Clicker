@@ -19,13 +19,12 @@ body{scroll-behavior: smooth; background-image: url('../images/baseplate1080.png
 
 #shop, #market, #stocks, #settings{display: none; overflow: auto; width:80%; height: 80%; background-color: #222; z-index: 10; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: white solid 3px;}
 #shop #storeThings div, #market #marketThings div{border-bottom: 2px solid white; padding: 5vw; display: table; width: 100%}
-#shop #storeThings div img, #market #marketThings div img{width: 7vh; height: 5vh; float:left}
+#shop #storeThings div img{width: 7vh; height: 5vh; float:left}
+#market #marketThings div img{width: 5vh; height: 5vh; float:left}
 #shop #storeThings div dl, #market #marketThings div dl{float: right; list-style-type: none}
 #shop #storeThings div footer, #market #marketThings div footer{font-size: 1.7vh; margin: 1vh}
 
 #stocks div{margin-top: 10vh; display: table; width: 100%}
-@keyframes animateleft {from {left: -300px; opacity: 0} to {left: 0; opacity: 1}}
-@keyframes animateright {from {right: -300px; opacity: 0} to {right: 0; opacity: 1}}
 
 @media screen and (max-width: 800px){
     #bottomMenu {width: 100%; left: 0}

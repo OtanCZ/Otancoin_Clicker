@@ -6,7 +6,7 @@
             "description": "Better for a museum than mining, but jokes on the GPU, you don't pay electricity, so it's basically free money! Yay!",
             "image": "./images/1.png",
             "addCPS": 1,
-            "price": 25     
+            "price": 30     
         },
 
         {
@@ -48,36 +48,62 @@
             "id": 5,
             "name": "NASA GPU",
             "description": "This is used to power the robots and rocketships that go on different planets. I wonder how the store got this...",
-            "image": "./images/7.png",
+            "image": "./images/6.png",
             "addCPS": 500,
             "price": 150000
+        },
+
+        {
+            "id": 6,
+            "name": "Prototype GPU",
+            "description": "Is the store a pawn shop now? I bet it was stole off of Shintel.",
+            "image": "./images/7.png",
+            "addCPS": 1250,
+            "price": 500000
+        },
+
+        {
+            "id": 7,
+            "name": "Alien Relic",
+            "description": "Is.. is it green? It has a PCIE port, along with some ports you have never seen.",
+            "image": "./images/8.png",
+            "addCPS": 3000,
+            "price": 1500000
         }
     ],
     
     "upgrades":[
         {
             "id": 0,
-            "name": "Clicker",
+            "name": "Cursor",
             "description": "This upgrade adds +1 to your clicking power.",
-            "image": "./images/cursor.png",
+            "image": "./images/cursorWood.png",
             "addCPC": 1,
             "price": 50
         },
         {
             "id": 1,
-            "name": "Clicker 2",
+            "name": "Cursor 2",
             "description": "This upgrade adds +1 to your clicking power, again.",
-            "image": "./images/cursor.png",
+            "image": "./images/cursorBasic.png",
             "addCPC": 1,
             "price": 500
         },
         {
-            "id": 3,
-            "name": "Clicker 3: The Trilogy",
+            "id": 2,
+            "name": "Cursor 3: The Trilogy",
             "description": "This upgrade adds +2 to your clicking power.",
-            "image": "./images/cursor.png",
+            "image": "./images/cursorGold.png",
             "addCPC": 2,
-            "price": 1500
+            "price": 2000
+        },
+        {
+            "id": 3,
+            "name": "Graphical Cursor",
+            "description": "This upgrade adds 5% of your CPS to your clicking power.",
+            "image": "./images/cursorEpic.png",
+            "addCPCplusCPS": 0.05,
+            "price": 25000
         }
     ]
 }
