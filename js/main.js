@@ -348,6 +348,9 @@ function ascend(){
     Cookies.remove('dollarAscention');
     Cookies.remove('coinAscention');
     ascensions *= 2;
+    
+    Cookies.set('coinTotal', coinTotal, {expires: 235, path: '' });
+    Cookies.set('dollarTotal', dollarTotal, {expires: 235, path: '' });
     Cookies.set('ascensions', ascensions, {expires: 235, path: '' }).then(location.reload(true));
 }
 
