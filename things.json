@@ -104,6 +104,13 @@
             "image": "./images/cursorEpic.png",
             "addCPCplusCPS": 0.05,
             "price": 25000
+        },
+        {
+            "id": 7,
+            "name": "Ascension",
+            "description": "Lose all your progress, but your CPS will double.",
+            "image": "./images/ascend.png",
+            "price": 5000000
         }
     ]
 }

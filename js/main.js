@@ -32,6 +32,7 @@ let coinCount = 0;
 let coinsPerSecond = 0;
 let coinPerClick = 1;
 let coinPerClickplusCPS = 0;
+let ascensions = 1;
 let dollars = 0;
 let things = [0, 0, 0, 0, 0, 0, 0, 0]
 let upgrades = [0, 0, 0, 0, 0, 0, 0, 0]
@@ -55,7 +56,7 @@ fetch('../things.json')
     thingTitle.innerText = thing.name;
     thingDescription.innerText = thing.description;
 
-    thingCPS.innerText = thing.addCPS + " CPS";
+    thingCPS.innerText = thing.addCPS*ascensions + " CPS";
     thingCost.innerText = Math.round(thing.price*Math.pow(1.15, things[thing.id])) + " $";
     thingCount.innerText = things[thing.id] + " owned";
 
@@ -78,7 +79,7 @@ fetch('../things.json')
             dollars -= Math.round(thing.price*Math.pow(1.15, things[thing.id]));
             dollarCounter.innerHTML = dollars + " $";
 
-            coinsPerSecond += thing.addCPS;
+            coinsPerSecond += thing.addCPS*ascensions;
             CPScounter.innerHTML = coinsPerSecond + " CPS";
 
             eval(things[thing.id]++);
@@ -110,7 +111,13 @@ fetch('../things.json')
     upgradeTitle.innerText = upgrade.name;
     upgradeDescription.innerText = upgrade.description;
 
-    upgradeCost.innerText = upgrade.price + " coins"
+    if(upgrade.id == 7){
+        upgradeCost.innerText = Math.round(upgrade.price*Math.pow(2.5, ascensions)) + " coins"
+    }
+
+    else{
+        upgradeCost.innerText = upgrade.price + " coins"
+    }
 
     upgradeDiv.appendChild(upgradeImg);
     upgradeDiv.appendChild(upgradeTitle);
@@ -137,9 +144,14 @@ fetch('../things.json')
 
             coinCount -= upgrade.price
 
-            upgrades[upgrade.id] = 1;
+            if(upgrade.id == 7){
+                ascend();
+            }
 
-            upgradeDiv.style.display = "none";
+            else{
+                upgrades[upgrade.id] = 1;
+                upgradeDiv.style.display = "none";
+            }
 
             for (let i = 0; i < coinCounter.length; i++) {
                 coinCounter[i].innerHTML = coinCount + " coins";
@@ -178,6 +190,7 @@ window.addEventListener("DOMContentLoaded", () => {
     if(eval(Cookies.get('CPS')) != undefined){coinsPerSecond = eval(Cookies.get('CPS'))}
     if(eval(Cookies.get('CPC')) != undefined){coinPerClick = eval(Cookies.get('CPC'))}
     if(eval(Cookies.get('CPCp')) != undefined){coinPerClickplusCPS = eval(Cookies.get('CPCp'))}
+    if(eval(Cookies.get('ascensions')) != undefined){ascensions = eval(Cookies.get('ascensions'))}
     if(eval(Cookies.get('dollars')) != undefined){dollars = eval(Cookies.get('dollars'))}
     if(eval(Cookies.get('things')) != undefined){things = eval(Cookies.get('things').split("|"))}
     if(eval(Cookies.get('upgrades')) != undefined){upgrades = eval(Cookies.get('upgrades').split("|"))}
@@ -209,6 +222,7 @@ setInterval(function(){
     Cookies.set('CPS', coinsPerSecond, {expires: 235, path: '' });
     Cookies.set('CPC', coinPerClick, {expires: 235, path: '' });
     Cookies.set('CPCp', coinPerClickplusCPS, {expires: 235, path: '' });
+    Cookies.set('ascensions', ascensions, {expires: 235, path: '' });
     Cookies.set('dollars', dollars, {expires: 235, path: '' });
     Cookies.set('things', things, {expires: 235, path: '' });
     Cookies.set('upgrades', upgrades, {expires: 235, path: '' });
@@ -267,6 +281,19 @@ sellInputButton.onclick = () => {
 
     dollarCounter.innerHTML = dollars + " $"
     dollarValueForAll.innerHTML = Math.round(coinCount*coinValue)
+}
+
+function ascend(){
+    Cookies.remove('coins');
+    Cookies.remove('coinValue');
+    Cookies.remove('CPS');
+    Cookies.remove('CPC');
+    Cookies.remove('CPCp');
+    Cookies.remove('dollars');
+    Cookies.remove('things');
+    Cookies.remove('upgrades');
+    ascensions *= 2;
+    Cookies.set('ascensions', ascensions, {expires: 235, path: '' }).then(location.reload(true));
 }
 
 bottomMenuButton[0].onclick = () => {
