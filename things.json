@@ -15,7 +15,7 @@
             "description": "Probably leftovers from a kid's old gaming rig, with this you can at least launch Minecraft without it crashing.",
             "image": "./images/2.png",
             "addCPS": 5,
-            "price": 350
+            "price": 300
         },
 
         {
@@ -108,9 +108,9 @@
         {
             "id": 7,
             "name": "Ascension",
-            "description": "Lose all your progress, but your CPS will double.",
+            "description": "Lose all your progress, but everything has twice the CPS.",
             "image": "./images/ascend.png",
-            "price": 5000000
+            "price": 8000000
         }
     ]
 }

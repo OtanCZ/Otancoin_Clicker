@@ -11,8 +11,10 @@ body{scroll-behavior: smooth; background-image: url('../images/baseplate1080.png
 #promptSave, #promptLoad{position: absolute; padding: 2vw; bottom: 0; background-color: rgba(20, 20, 20, 0.5); visibility: hidden; z-index: 999999;}
 
 #hatclicker{height:40vh; margin-top: 15vh}
-#hatclicker.click{animation: clicked 100ms linear}
-@keyframes clicked{0% {transform: scale(1)} 100%{transform: scale(0.95)}}
+#hatclicker:hover{animation: hover ease-in-out 0.5s; animation-fill-mode: forwards;}
+#hatclicker:active{animation: click linear 0.1s;}
+@keyframes hover{100%{transform: scale(1.02)}}
+@keyframes click{0%{transform: scale(1)} 100%{transform: scale(0.95);}}
 
 #title{width: 50%; max-height: 10vh; animation: hahaitgo 5s ease-in-out infinite;}
 @keyframes hahaitgo{0%, 100%{transform: translateY(4vh)} 50% {transform: translateY(1vh)}}
@@ -20,11 +22,13 @@ body{scroll-behavior: smooth; background-image: url('../images/baseplate1080.png
 #shop, #market, #stocks, #settings{display: none; overflow: auto; width:80%; height: 80%; background-color: #222; z-index: 10; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: white solid 3px;}
 #shop #storeThings div, #market #marketThings div{border-bottom: 2px solid white; padding: 5vw; display: table; width: 100%}
 #shop #storeThings div img{width: 7vh; height: 5vh; float:left}
-#market #marketThings div img{width: 5vh; height: 5vh; float:left}
+#market #marketThings div img{width: 3vh; height: 5vh; float:left}
 #shop #storeThings div dl, #market #marketThings div dl{float: right; list-style-type: none}
 #shop #storeThings div footer, #market #marketThings div footer{font-size: 1.7vh; margin: 1vh}
 
 #stocks div{margin-top: 10vh; display: table; width: 100%}
+#settings img{padding: 0 5vh; width: 100%}
+#settings div{padding: 1vh 0vh;}
 
 @media screen and (max-width: 800px){
     #bottomMenu {width: 100%; left: 0}

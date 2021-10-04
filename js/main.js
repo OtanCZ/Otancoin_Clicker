@@ -2,9 +2,16 @@ import Cookies from './js.cookie.mjs'
 
 let dollarCounter = document.getElementById("dollarCounter")
 let coinCounter = document.getElementsByClassName("coinCounter")
-let CPScounter = document.getElementById("CPScounter")
+let CPScounter = document.getElementsByClassName("CPScounter")
 let dollarValueThing = document.getElementsByClassName("dollarValueThing")
 let dollarValueForAll = document.getElementById("dollarValueForAll")
+
+let coinCounterTotal = document.getElementById("coinCounterTotal")
+let coinCounterAscention = document.getElementById("coinCounterAscention")
+let dollarCounterTotal = document.getElementById("dollarCounterTotal")
+let dollarCounterAscention = document.getElementById("dollarCounterAscention")
+let ascentionBoost = document.getElementById("ascentionBoost")
+let ascentionCounter = document.getElementById("ascentionCounter")
 
 let sellAllButton = document.getElementById("sellAllButton")
 
@@ -20,6 +27,8 @@ let bottomMenuButton = document.getElementsByClassName("bottomMenuButton")
 
 let promptSave = document.getElementById("promptSave")
 let promptLoad = document.getElementById("promptLoad")
+
+let resetButton = document.getElementById("resetButton")
 
 let hatclicker = document.getElementById("hatclicker")
 
@@ -37,6 +46,11 @@ let dollars = 0;
 let things = [0, 0, 0, 0, 0, 0, 0, 0]
 let upgrades = [0, 0, 0, 0, 0, 0, 0, 0]
 let coinValue = 0.2;
+
+let coinTotal = 0;
+let coinAscention = 0;
+let dollarTotal = 0;
+let dollarAscention = 0;
 
 fetch('../things.json')
     .then(response => response.json())
@@ -80,8 +94,11 @@ fetch('../things.json')
             dollarCounter.innerHTML = dollars + " $";
 
             coinsPerSecond += thing.addCPS*ascensions;
-            CPScounter.innerHTML = coinsPerSecond + " CPS";
 
+            for (let i = 0; i < CPScounter.length; i++) {
+                CPScounter[i].innerHTML = coinsPerSecond + " CPS";
+            }
+            
             eval(things[thing.id]++);
             thingCount.innerHTML = things[thing.id] + " owned"
 
@@ -168,19 +185,27 @@ fetch('../things.json')
 
 function hatClick(){
     coinCount += Math.round(coinPerClick + coinsPerSecond*coinPerClickplusCPS)
-
-    hatclicker.classList.add('click');
-    setTimeout(() => {hatclicker.classList.remove('click')}, 150);
+    coinAscention += Math.round(coinPerClick + coinsPerSecond*coinPerClickplusCPS)
+    coinTotal += Math.round(coinPerClick + coinsPerSecond*coinPerClickplusCPS)
+    
     for (let i = 0; i < coinCounter.length; i++) {
         coinCounter[i].innerHTML = coinCount + " coins";
     }
+
+    coinCounterAscention.innerHTML = coinAscention;
+    coinCounterTotal.innerHTML = coinTotal;
 }
 
 setInterval(function(){
     coinCount += coinsPerSecond;
+    coinAscention += coinsPerSecond;
+    coinTotal += coinsPerSecond;
+
     for (let i = 0; i < coinCounter.length; i++) {
         coinCounter[i].innerHTML = coinCount + " coins";
     }
+    coinCounterAscention.innerHTML = coinAscention;
+    coinCounterTotal.innerHTML = coinTotal;
     dollarValueForAll.innerHTML = Math.round(coinCount*coinValue)
 }, 1000);
 
@@ -194,12 +219,19 @@ window.addEventListener("DOMContentLoaded", () => {
     if(eval(Cookies.get('dollars')) != undefined){dollars = eval(Cookies.get('dollars'))}
     if(eval(Cookies.get('things')) != undefined){things = eval(Cookies.get('things').split("|"))}
     if(eval(Cookies.get('upgrades')) != undefined){upgrades = eval(Cookies.get('upgrades').split("|"))}
+    if(eval(Cookies.get('coinTotal')) != undefined){coinTotal = eval(Cookies.get('coinTotal'))}
+    if(eval(Cookies.get('coinAscention')) != undefined){coinAscention = eval(Cookies.get('coinAscention'))}
+    if(eval(Cookies.get('dollarTotal')) != undefined){dollarTotal = eval(Cookies.get('dollarTotal'))}
+    if(eval(Cookies.get('dollarAscention')) != undefined){dollarAscention = eval(Cookies.get('dollarAscention'))}
 
     for (let i = 0; i < coinCounter.length; i++) {
         coinCounter[i].innerHTML = coinCount + " coins";
     }
 
-    CPScounter.innerHTML = coinsPerSecond + " CPS";
+    for (let i = 0; i < CPScounter.length; i++) {
+        CPScounter[i].innerHTML = coinsPerSecond + " CPS";
+    }
+
     dollarCounter.innerHTML = dollars + " $";
 
     for (let i = 0; i < dollarValueThing.length; i++) {
@@ -207,7 +239,15 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     dollarValueForAll.innerHTML = Math.round(coinCount*coinValue)
-    
+
+    coinCounterAscention.innerHTML = coinAscention;
+    coinCounterTotal.innerHTML = coinTotal;
+
+    dollarCounterAscention.innerHTML = dollarAscention;
+    dollarCounterTotal.innerHTML = dollarTotal;
+
+    ascentionBoost.innerHTML = ascensions;
+    ascentionCounter.innerHTML = Math.log(ascensions)/Math.log(2);
     promptLoad.style.visibility = "visible";
     setTimeout(() => {promptLoad.style.visibility = "hidden"}, 2000);
 });
@@ -226,6 +266,10 @@ setInterval(function(){
     Cookies.set('dollars', dollars, {expires: 235, path: '' });
     Cookies.set('things', things, {expires: 235, path: '' });
     Cookies.set('upgrades', upgrades, {expires: 235, path: '' });
+    Cookies.set('coinTotal', coinTotal, {expires: 235, path: '' });
+    Cookies.set('coinAscention', coinAscention, {expires: 235, path: '' });
+    Cookies.set('dollarTotal', dollarTotal, {expires: 235, path: '' });
+    Cookies.set('dollarAscention', dollarAscention, {expires: 235, path: '' });
     things = things.split("|");
     upgrades = upgrades.split("|");
     
@@ -241,7 +285,9 @@ setInterval(function(){
 hatclicker.onclick = hatClick;
 
 sellAllButton.onclick = () => {
-    dollars += Math.round(coinCount*coinValue)
+    dollars += Math.round(coinCount*coinValue);
+    dollarAscention += Math.round(coinCount*coinValue);
+    dollarTotal  += Math.round(coinCount*coinValue);
     coinCount = 0;
     sellInput.value = 0
     coinInput.innerHTML = "0";
@@ -250,7 +296,10 @@ sellAllButton.onclick = () => {
     for (let i = 0; i < coinCounter.length; i++) {
         coinCounter[i].innerHTML = coinCount + " coins";
     }
+
     dollarCounter.innerHTML = dollars + " $"
+    dollarCounterAscention.innerHTML = dollarAscention;
+    dollarCounterTotal.innerHTML = dollarTotal;
 
     dollarValueForAll.innerHTML = Math.round(coinCount*coinValue)
 };
@@ -271,6 +320,8 @@ sellInput.oninput = () => {
 sellInputButton.onclick = () => {
     coinCount -= coinInput.innerHTML;
     dollars += Math.round(sellInput.value*coinValue);
+    dollarAscention += Math.round(sellInput.value*coinValue);
+    dollarTotal += Math.round(sellInput.value*coinValue);
 
     sellInput.value = 0;
     coinInput.innerHTML = "0";
@@ -280,6 +331,8 @@ sellInputButton.onclick = () => {
     }
 
     dollarCounter.innerHTML = dollars + " $"
+    dollarCounterAscention.innerHTML = dollarAscention;
+    dollarCounterTotal.innerHTML = dollarTotal;
     dollarValueForAll.innerHTML = Math.round(coinCount*coinValue)
 }
 
@@ -292,9 +345,29 @@ function ascend(){
     Cookies.remove('dollars');
     Cookies.remove('things');
     Cookies.remove('upgrades');
+    Cookies.remove('dollarAscention');
+    Cookies.remove('coinAscention');
     ascensions *= 2;
     Cookies.set('ascensions', ascensions, {expires: 235, path: '' }).then(location.reload(true));
 }
+
+resetButton.onclick = () => {
+    Cookies.remove('coins');
+    Cookies.remove('coinValue');
+    Cookies.remove('CPS');
+    Cookies.remove('CPC');
+    Cookies.remove('CPCp');
+    Cookies.remove('ascensions');
+    Cookies.remove('dollars');
+    Cookies.remove('things');
+    Cookies.remove('upgrades');
+    Cookies.remove('coinTotal');
+    Cookies.remove('coinAscention');
+    Cookies.remove('dollarTotal');
+    Cookies.remove('dollarAscention')
+    location.reload(true);
+}
+
 
 bottomMenuButton[0].onclick = () => {
     if(stocks.style.display == "block"){

@@ -45,8 +45,14 @@
         </div>
 
         <div id="settings">
-            <div style="border-bottom: white solid 3px; font-size: xx-large;">Settings [WIP]</div>
-            <div>&copy; Oťan, 2021.</div>
+            <div style="border-bottom: white solid 3px; font-size: xx-large;">Settings</div>
+            <img src="images/title lmao.png">
+            <div>Total coins made: <span id="coinCounterTotal">[number]</span>. (<span id="coinCounterAscention">[number]</span> this ascention)</div>
+            <div>Total $ made: <span id="dollarCounterTotal">[number]</span>. (<span id="dollarCounterAscention">[number]</span> this ascention)</div>
+            <div>Current CPS: <span class="CPScounter">[number]</span>. (<span id="ascentionBoost">[number]</span>x ascention boost)</div>
+            <div>Ascended <span id="ascentionCounter">[number]</span> times.</div>
+
+            <div style="margin-top: 5%;">Is something bugged? Reset your progress: <button id="resetButton" style="color:black">Click to reset progress.</button></div>
             <div>You can close this menu by clicking on the button again.</div>
         </div>
 
@@ -61,7 +67,7 @@
                 0 coins
             </div>
 
-            <div class="stat" id="CPScounter">
+            <div class="stat CPScounter">
                 0 CPS
             </div>
         </div>
