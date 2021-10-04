@@ -19,7 +19,7 @@ TODO list:
 - [x] Better mobile support.
 - [x] Balancing out the shop.
 - [x] Providing pictures for the shop.
-- [ ] Make the game prettier.
-- [ ] Maybe some clicking upgrades, since it becomes redundant after a few minutes.
-- [ ] Ascensions?
+- [ ] Make the game prettier. LOL NO NVM IDK CSS
+- [x] Maybe some clicking upgrades, since it becomes redundant after a few minutes.
+- [x] Ascensions?
 
